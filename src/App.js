@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
+import UserOutput from './Components/UserOutput'
+import UserInput from './Components/UserInput'
 
 class App extends Component {
   state = {
@@ -35,6 +37,15 @@ class App extends Component {
     });
   }
 
+  userNameHandler = (event) => {
+    this.setState({
+      persons: [  
+        { name: "Max", age: 28 },
+        { name: event.target.value, age: 29 },
+        { name: 'Stephanie', age: 27 }
+      ]})
+  }
+
   render() {
 
     const style = {
@@ -44,6 +55,8 @@ class App extends Component {
       padding: '8px',
       cursor: 'pointer'
     }
+
+   
 
     return (
       <div className="App">
@@ -69,6 +82,9 @@ class App extends Component {
           name={this.state.persons[2].name}
           age={this.state.persons[2].age}
         />
+
+      <UserOutput name={this.state.persons[1].name} />
+      <UserInput input={this.userNameHandler}/>
       </div>
     );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
