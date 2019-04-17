@@ -9,7 +9,8 @@ class App extends Component {
       { name: 'Manu', age: 29 },
       { name: 'Stephanie', age: 26 }
     ],
-    otherState: 'some other value'
+    otherState: 'some other value',
+    showPersons: false
   };
 
   switchNameHandler = (newName) => {
@@ -23,6 +24,11 @@ class App extends Component {
       ]
     });
   };
+ 
+  togglePersonsHandler = () => {
+    const doesShow = this.state.showPersons; 
+    this.setState({showPersons: !doesShow})
+  }
 
 
   nameChangedHandler = (event) => {
@@ -45,14 +51,10 @@ class App extends Component {
       cursor: 'pointer'
     }
 
-    return (
-      <div className="App">
-        <h1>Hi, I'm a React App</h1>
-        <p>This is really working!</p>
-        <button 
-            onClick={() => this.switchNameHandler('Maximillian!!')}
-            style={style}
-          >Switch Name</button>
+    let persons = null
+
+    if(this.state.showPersons) {
+      persons = (<div>
         <Person
           name={this.state.persons[0].name}
           age={this.state.persons[0].age}
@@ -69,6 +71,20 @@ class App extends Component {
           name={this.state.persons[2].name}
           age={this.state.persons[2].age}
         />
+      </div>)
+    }
+
+    return (
+      <div className="App">
+        <h1>Hi, I'm a React App</h1>
+        <p>This is really working!</p>
+        <button 
+            onClick={this.togglePersonsHandler}
+            style={style}
+          >Switch Name</button>
+         {persons}
+        
+        
       </div>
     );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
